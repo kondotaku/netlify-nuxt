@@ -1,72 +1,63 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        netlify-nuxt
-      </h1>
-      <h2 class="subtitle">
-        My beautiful Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div class>
+    <div class="ttl py-5">
+      <h1 class="h1 text-center">want items</h1>
+    </div>
+    <div class="d-flex flex-wrap picture-container">
+      <div v-for="item in items" :key="item" class="col-md-4 col-6 p-3 mb-4">
+        <div class="picture text-center mb-2">
+          <!-- picture_imgを取得する -->
+          <img :src="item.gazo.url" class="img-thumbnail img-fluid img_wrap" />
+        </div>
+        <!-- picture_dateを取得する -->
+        <p class="date mb-0 font-weight-bold" v-html="item.dat" />
+        <h2 class="h3 text-primary">
+          <!-- picture_areaを取得する -->
+          {{ item.txt }}
+        </h2>
+        <p>{{ item.desc }}</p>
       </div>
+    </div>
+    <div class="footer bg-success py-5">
+      <p class="text-center text-white">Copyright &copy; picture All Rights Reserved.</p>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import axios from "axios";
 
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      items: ""
+    };
+  },
+  head: {
+    script: []
+  },
+  async asyncData() {
+    const { data } = await axios.get(
+      "https://kondodev.microcms.io/api/v1/postimage",
+      {
+        headers: { "X-API-kEY": "6a4db142-5fed-4ded-b1ff-fb497a35eae6" }
+      }
+    );
+    return {
+      items: data.contents
+    };
   }
-}
+};
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.picture-container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.img_wrap {
+  object-fit: cover;
+  height: 300px;
 }
 </style>
