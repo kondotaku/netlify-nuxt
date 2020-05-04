@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class="ttl py-5">
-      <h1 class="h1 text-center">want items</h1>
+      <h1 class="h1 text-center">{{ title }}</h1>
     </div>
     <div class="d-flex flex-wrap picture-container">
       <div v-for="item in items" :key="item" class="col-md-4 col-6 p-3 mb-4">
@@ -30,12 +30,26 @@ import axios from "axios";
 export default {
   data() {
     return {
-      items: ""
+      items: "",
+      title: "want itemlist"
     };
   },
   head: {
     script: []
   },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: "description",
+          name: "これは僕のほしいアイテムのリスト",
+          content: "dこれは僕のほしいアイテムのリストです"
+        }
+      ]
+    };
+  },
+
   async asyncData() {
     const { data } = await axios.get(
       "https://kondodev.microcms.io/api/v1/postimage",
@@ -43,6 +57,8 @@ export default {
         headers: { "X-API-kEY": "6a4db142-5fed-4ded-b1ff-fb497a35eae6" }
       }
     );
+    console.log(data);
+
     return {
       items: data.contents
     };

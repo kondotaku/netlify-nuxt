@@ -1,0 +1,25 @@
+## micro CMSの設定 / nuxt.jsの設定
+https://note.com/ssnozawa/n/n2e4fc2ac6a40
+
+
+
+
+
+
+## MicroCMS からnetlifyに更新通知を出す
+microCMSで更新した情報をwebhookを使い更新通知をだすんだなも
+
+### netlify側
+ Deploys → Deploy settings →Build hooks → 「add build hook」を押下
+ 「build hook name」は適当にいれて「save」
+ → そうすると,
+ build hookのURLが出てくるのでコピー
+
+### MICRO CMS側
+ 対象のコンテンツを選択
+ API設定　→ webhook 
+ 「＋追加」ボタンを押下し、netlifyを追加
+ そして、netlify側で取得したwebhookのURLを設定してあげる
+
+### 同期完了時の注意
+ コンテンツを更新しても更新までに少し時間がかかる(5分程度？)ので焦らずまつ
