@@ -1,29 +1,38 @@
 <template>
   <div class>
     <div class="ttl py-5">
-      <h1 class="h1 text-center">{{ item.title }}</h1>
+      <h1 class="h1 text-center">{{ aboutitem.title }}</h1>
     </div>
     <div class="d-flex flex-wrap picture-container">
       <div class="picture text-center mb-2">
         <!-- picture_imgを取得する -->
-        <img :src="item.gazo.url" class="img-thumbnail img-fluid img_wrap" />
+        <img :src="aboutitem.gazo.url" class="img-thumbnail img-fluid img_wrap" />
       </div>
       <!-- picture_dateを取得する -->
-      <div v-html="item.desc" class="pl-0 pl-md-5"></div>
+      <div v-html="aboutitem.desc" class="pl-0 pl-md-5"></div>
     </div>
+
+    <countup />
+
     <div class="footer bg-success py-5">
       <p class="text-center text-white">Copyright &copy; picture All Rights Reserved.</p>
     </div>
   </div>
 </template>
 
+
 <script>
 import axios from "axios";
+import Countimg from "@/components/countup.vue";
 
 export default {
+  components: {
+    Countimg
+  },
+
   data() {
     return {
-      item: ""
+      title: "want itemlist"
     };
   },
   async asyncData() {
@@ -33,10 +42,9 @@ export default {
         headers: { "X-API-kEY": "6a4db142-5fed-4ded-b1ff-fb497a35eae6" }
       }
     );
-    console.log(data);
 
     return {
-      item: data,
+      aboutitem: data,
       title: data.title
     };
   },

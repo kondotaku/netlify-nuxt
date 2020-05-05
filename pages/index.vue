@@ -4,13 +4,14 @@
       <h1 class="h1 text-center">{{ title }}</h1>
     </div>
     <div class="d-flex flex-wrap picture-container">
-      <div v-for="item in items" :key="item" class="col-md-4 col-6 p-3 mb-4">
+      <div v-for="(item, index) in items" :key="index" class="col-md-4 col-6 p-3 mb-4">
         <div class="picture text-center mb-2">
           <!-- picture_imgを取得する -->
           <img :src="item.gazo.url" class="img-thumbnail img-fluid img_wrap" />
         </div>
         <!-- picture_dateを取得する -->
-        <p class="date mb-0 font-weight-bold" v-html="item.dat" />
+        <time class="date mb-0 font-weight-bold date" v-html="item.dat">{{ item.dat }}</time>
+
         <h2 class="h3 text-primary">
           <!-- picture_areaを取得する -->
           {{ item.txt }}
@@ -26,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
