@@ -5,7 +5,13 @@
       <CategoryCat />
     </div>
     <div class="d-flex flex-wrap picture-container">
-      <div v-for="(item, index) in items" :key="index" class="col-md-4 col-6 p-3 mb-4">
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="col-md-4 col-6 p-3 mb-4"
+        v-if="item.relate.catID === $route.params.slug"
+      >
+        {{ item.relate.cat }}
         <div class="picture text-center mb-2">
           <!-- picture_imgを取得する -->
           <img :src="item.gazo.url" class="img-thumbnail img-fluid img_wrap" />
@@ -19,7 +25,7 @@
           {{ item.txt }}
         </h2>
         <p>{{ item.desc }}</p>
-        <nuxt-link :to="'/items/'">リンク</nuxt-link>
+        <nuxt-link :to="'/items/' + item.id">リンク</nuxt-link>
       </div>
     </div>
     <div class="footer bg-success py-5">
@@ -37,7 +43,6 @@ export default {
   components: {
     CategoryCat
   },
-
   data() {
     return {
       items: "",
@@ -67,6 +72,7 @@ export default {
         headers: { "X-API-kEY": "6a4db142-5fed-4ded-b1ff-fb497a35eae6" }
       }
     );
+
     console.log(data);
 
     return {

@@ -7,13 +7,18 @@
     </div>
     <!-- picture_dateを取得する -->
     <time class="date mb-0 font-weight-bold date" v-html="item.dat">{{ item.dat }}</time>
+    <nuxt-link
+      class="badge-primary rounded-pill p-2"
+      :to="'/items/category/' + item.relate.catID"
+    >{{item.relate.cat}}</nuxt-link>
 
     <h2 class="h3 text-primary">
       <!-- picture_areaを取得する -->
       {{ item.txt }}
     </h2>
     <p>{{ item.desc }}</p>
-    <nuxt-link to="/items/">リンク</nuxt-link>
+
+    <nuxt-link to="/items/">一覧へ戻る</nuxt-link>
   </div>
 </template>
 
@@ -33,6 +38,7 @@ export default {
       item: data
     };
   },
+
   head: {
     script: []
   },
@@ -46,6 +52,7 @@ export default {
         }
       ]
     };
+    console.log("testing");
   }
 };
 </script>
