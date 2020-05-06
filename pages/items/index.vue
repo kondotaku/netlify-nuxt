@@ -19,7 +19,7 @@
           {{ item.txt }}
         </h2>
         <p>{{ item.desc }}</p>
-        <nuxt-link :to="'/items/'">リンク</nuxt-link>
+        <nuxt-link :to="'/items/'+ item.id">リンク</nuxt-link>
       </div>
     </div>
     <div class="footer bg-success py-5">
